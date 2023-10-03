@@ -31,6 +31,7 @@
 
 <script>
 import marked from 'marked';
+import * as DOMPurify from 'dompurify';
 
 marked.setOptions({ sanitize: true });
 
@@ -47,7 +48,7 @@ export default {
       if (message.type == "LEAVE") return message.userName + " left!";
       return "uknown message type";
     },
-    marked: marked
+    marked: (text) => DOMPurify.sanitize(marked.parse(text))
   }
 };
 </script>
